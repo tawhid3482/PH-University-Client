@@ -1,3 +1,4 @@
+import AcademicSemester from "../pages/Admin/academicManagement/AcademicSemester";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
 import CreateAdmin from "../pages/Admin/CreateAdmin";
 import CreateFaculty from "../pages/Admin/CreateFaculty";
@@ -19,6 +20,16 @@ export const adminPaths = [
     name: "Dashboard",
     path: "/admin/dashboard",
     element: <AdminDashboard />,
+  },
+  {
+    name: "Academic Management",
+    children: [
+      {
+        name: "Academic Semester",
+        path: "academic-semester",
+        element: <AcademicSemester />,
+      },
+    ],
   },
   {
     name: "User Management",
@@ -62,8 +73,6 @@ export const adminPaths = [
 //   }
 //   return acc;
 // }, [] as TSidebarItem[]);
-
-
 
 // programmatically generate paths for routes
 // export const adminRoutes = adminPaths.reduce((acc: TRoute[], item) => {
