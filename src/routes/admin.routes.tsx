@@ -18,7 +18,7 @@ import CreateStudent from "../pages/Admin/CreateStudent";
 export const adminPaths = [
   {
     name: "Dashboard",
-    path: "/admin/dashboard",
+    path: "dashboard",
     element: <AdminDashboard />,
   },
   {
