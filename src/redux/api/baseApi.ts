@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   BaseQueryApi,
   BaseQueryFn,
@@ -40,6 +41,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
     });
 
     const data = await res.json();
+    console.log('important console', data)
 
     if (data?.data?.accessToken) {
       const user = (api.getState() as RootState).auth.user;
