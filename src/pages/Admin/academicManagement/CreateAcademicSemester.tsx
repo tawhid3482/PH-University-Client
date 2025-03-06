@@ -1,8 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FieldValues, SubmitHandler } from 'react-hook-form';
 import { Button, Col, Flex } from 'antd';
 import { toast } from 'sonner';
 import PHForm from '../../../components/form/PHFrom';
 import PHSelect from '../../../components/form/PHSelect';
+import { semesterOptions } from '../../../constants/semester';
+import { monthOptions } from '../../../constants/global';
+import { academicSemesterSchema } from '../../../schemas/academicManagement';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { TResponse } from '../../../types/global';
+import { useAddAcademicSemesterMutation } from '../../../redux/features/admin/academicManagement.api';
 
 const currentYear = new Date().getFullYear();
 const yearOptions = [0, 1, 2, 3, 4].map((number) => ({
@@ -29,7 +37,7 @@ const CreateAcademicSemester = () => {
     };
 
     try {
-      const res = (await addAcademicSemester(semesterData)) as TResponse;
+      const res = (await addAcademicSemester(semesterData)) as TResponse<any>;
       console.log(res);
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
