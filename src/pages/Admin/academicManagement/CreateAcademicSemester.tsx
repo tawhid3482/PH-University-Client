@@ -1,16 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FieldValues, SubmitHandler } from 'react-hook-form';
+import PHForm from '../../../components/form/PHForm';
 import { Button, Col, Flex } from 'antd';
-import { toast } from 'sonner';
-import PHForm from '../../../components/form/PHFrom';
 import PHSelect from '../../../components/form/PHSelect';
 import { semesterOptions } from '../../../constants/semester';
 import { monthOptions } from '../../../constants/global';
-import { academicSemesterSchema } from '../../../schemas/academicManagement';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { TResponse } from '../../../types/global';
+
+import { academicSemesterSchema } from '../../../schemas/academicManagement.schema';
 import { useAddAcademicSemesterMutation } from '../../../redux/features/admin/academicManagement.api';
+import { toast } from 'sonner';
+import { TResponse } from '../../../types/global';
 
 const currentYear = new Date().getFullYear();
 const yearOptions = [0, 1, 2, 3, 4].map((number) => ({
@@ -21,8 +20,6 @@ const yearOptions = [0, 1, 2, 3, 4].map((number) => ({
 const CreateAcademicSemester = () => {
   const [addAcademicSemester] = useAddAcademicSemesterMutation();
 
-
-  
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const toastId = toast.loading('Creating...');
 
@@ -37,7 +34,7 @@ const CreateAcademicSemester = () => {
     };
 
     try {
-      const res = (await addAcademicSemester(semesterData)) as TResponse<any>;
+      const res = (await addAcademicSemester(semesterData)) as TResponse;
       console.log(res);
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });

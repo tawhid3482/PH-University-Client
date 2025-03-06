@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   BaseQueryApi,
   BaseQueryFn,
@@ -7,8 +6,8 @@ import {
   createApi,
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
+import { RootState } from '../store';
 import { logout, setUser } from '../features/auth/authSlice';
-import { RootState } from '../features/store';
 import { toast } from 'sonner';
 
 const baseQuery = fetchBaseQuery({
@@ -33,10 +32,8 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   let result = await baseQuery(args, api, extraOptions);
 
   if (result?.error?.status === 404) {
-    toast.error((result?.error?.data as { message: string }).message);
+    toast.error(result.error.data.message);
   }
-
-
   if (result?.error?.status === 401) {
     //* Send Refresh
     console.log('Sending refresh token');
@@ -47,7 +44,6 @@ const baseQueryWithRefreshToken: BaseQueryFn<
     });
 
     const data = await res.json();
-    console.log('important console', data)
 
     if (data?.data?.accessToken) {
       const user = (api.getState() as RootState).auth.user;

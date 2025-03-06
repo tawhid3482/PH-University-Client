@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../store';
 
 export type TUser = {
   userId: string;
@@ -14,13 +13,13 @@ type TAuthState = {
   token: null | string;
 };
 
-
 const initialState: TAuthState = {
-  user: null ,
+  user: null,
   token: null,
 };
+
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     setUser: (state, action) => {
@@ -29,7 +28,8 @@ const authSlice = createSlice({
       state.token = token;
     },
     logout: (state) => {
-      (state.user = null), (state.token = null);
+      state.user = null;
+      state.token = null;
     },
   },
 });
@@ -37,5 +37,6 @@ const authSlice = createSlice({
 export const { setUser, logout } = authSlice.actions;
 
 export default authSlice.reducer;
+
 export const useCurrentToken = (state: RootState) => state.auth.token;
 export const selectCurrentUser = (state: RootState) => state.auth.user;
